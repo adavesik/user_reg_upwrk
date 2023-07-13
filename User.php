@@ -51,16 +51,24 @@ class User
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function updatePassword($username, string $newPassword)
     {
         // Generate a hashed password
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
         // Check if the password hashing was successful
-        if ($hashedPassword == false) {
+        if (!$hashedPassword) {
             throw new Exception('Password hashing failed.');
         }
 
-        // TODO Update the user's password in the database
+        // Update the user's password in the database
+        $query = "UPDATE users SET password = :password WHERE username = :username";
+        $statement = $this->db->prepare($query);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':password', $hashedPassword);
+        $statement->execute();
     }
 }
