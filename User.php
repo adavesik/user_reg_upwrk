@@ -19,7 +19,7 @@ class User
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Check if successful
-        if($hashedPassword === false)
+        if($hashedPassword == false)
         {
             throw new Exception('Password hashing failed. So sorry.');
         }
