@@ -50,4 +50,17 @@ class User
 
         return false;
     }
+
+    public function updatePassword($username, string $newPassword)
+    {
+        // Generate a hashed password
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Check if the password hashing was successful
+        if ($hashedPassword == false) {
+            throw new Exception('Password hashing failed.');
+        }
+
+        // TODO Update the user's password in the database
+    }
 }
